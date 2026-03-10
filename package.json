@@ -2,9 +2,12 @@
   "name": "git-pin",
   "displayName": "Git Pin",
   "description": "Pin your favorite Git branches and stashes for quick access",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "icon": "assets/icon/icon.png",
   "publisher": "vooriden",
+  "repository": {
+    "url": "https://github.com/Vooriden/git-pin-vscode-extension"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },

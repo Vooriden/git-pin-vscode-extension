@@ -2,6 +2,12 @@
 
 All notable changes to Git Pin will be documented in this file.
 
+## [0.2.5]
+
+Bug fixes:
+
+- Fixed Linux Bash parsing error when listing branches by quoting the `git branch --format` value
+
 ## [0.2.4]
 
 New features:

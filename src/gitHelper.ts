@@ -26,7 +26,7 @@ export class GitHelper {
   async getAllBranches(): Promise<string[]> {
     try {
       const { stdout } = await exec(
-        'git branch --all --format=%(refname:short)',
+        'git branch --all --format="%(refname:short)"',
         {
           cwd: this.workspaceRoot,
         },
