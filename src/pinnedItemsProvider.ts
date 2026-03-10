@@ -82,14 +82,6 @@ export class PinnedStashItem extends vscode.TreeItem {
       this.iconPath = new vscode.ThemeIcon('archive');
       this.description = `stash@{${stashIndex}}`;
     }
-
-    if (exists) {
-      this.command = {
-        command: 'git-pin.applyStash',
-        title: 'Apply Stash',
-        arguments: [this],
-      };
-    }
   }
 }
 

@@ -169,6 +169,20 @@ export async function activate(context: vscode.ExtensionContext) {
     },
   );
 
+  // Command: Pop stash
+  const popStashCommand = vscode.commands.registerCommand(
+    'git-pin.popStash',
+    async (item: PinnedStashItem) => {
+      if (item && item.stashIndex !== undefined && item.exists) {
+        const success = await gitHelper.popStash(item.stashIndex);
+        if (success) {
+          // Refresh the view to update stash list
+          setTimeout(() => pinnedItemsProvider.refresh(), 500);
+        }
+      }
+    },
+  );
+
   // Register all commands
   context.subscriptions.push(
     pinCurrentBranchCommand,
@@ -178,6 +192,7 @@ export async function activate(context: vscode.ExtensionContext) {
     pinStashCommand,
     unpinStashCommand,
     applyStashCommand,
+    popStashCommand,
   );
 
   // Listen for Git changes to refresh the view (optional, non-blocking)

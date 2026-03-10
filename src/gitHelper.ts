@@ -112,6 +112,21 @@ export class GitHelper {
     }
   }
 
+  async popStash(stashIndex: number): Promise<boolean> {
+    try {
+      await exec(`git stash pop stash@{${stashIndex}}`, {
+        cwd: this.workspaceRoot,
+      });
+      vscode.window.showInformationMessage(
+        `Popped stash stash@{${stashIndex}}`,
+      );
+      return true;
+    } catch (error) {
+      vscode.window.showErrorMessage(`Failed to pop stash: ${error}`);
+      return false;
+    }
+  }
+
   async stashExists(stashIndex: number): Promise<boolean> {
     try {
       await exec(`git rev-parse --verify stash@{${stashIndex}}`, {

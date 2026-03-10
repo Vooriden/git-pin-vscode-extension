@@ -2,7 +2,7 @@
   "name": "git-pin",
   "displayName": "Git Pin",
   "description": "Pin your favorite Git branches and stashes for quick access",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "publisher": "vooriden",
   "engines": {
     "vscode": "^1.80.0"
@@ -47,6 +47,11 @@
         "command": "git-pin.applyStash",
         "title": "Git Pin: Apply Stash",
         "icon": "$(archive)"
+      },
+      {
+        "command": "git-pin.popStash",
+        "title": "Git Pin: Pop Stash",
+        "icon": "$(arrow-up)"
       }
     ],
     "views": {
@@ -89,6 +94,11 @@
         },
         {
           "command": "git-pin.applyStash",
+          "when": "view == pinnedItems && viewItem == pinnedStash",
+          "group": "inline"
+        },
+        {
+          "command": "git-pin.popStash",
           "when": "view == pinnedItems && viewItem == pinnedStash",
           "group": "inline"
         },

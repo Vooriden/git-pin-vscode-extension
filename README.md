@@ -40,9 +40,11 @@ A Visual Studio Code extension that allows you to pin your favorite Git branches
 
 ### Apply a Pinned Stash
 
-- Expand **Stashes** inside the "Pinned" view and click a stash to apply it
-- Or click the archive icon next to the stash name
-- The stash will be applied to your working directory (equivalent to `git stash apply`)
+- Expand **Stashes** inside the "Pinned" view
+- Click the archive icon (apply) or trash icon (pop) on a stash item
+- Left icon applies the stash (keeps it in the stash list)
+- Right icon pops the stash (applies and removes it)
+- The stash will be applied to your working directory (equivalent to `git stash apply` or `git stash pop`)
 
 ### Unpin a Stash
 
@@ -88,7 +90,8 @@ This extension contributes the following commands:
 
 - `git-pin.pinStash` - Pin a Git stash
 - `git-pin.unpinStash` - Unpin a stash
-- `git-pin.applyStash` - Apply a pinned stash
+- `git-pin.applyStash` - Apply a pinned stash (keeps stash)
+- `git-pin.popStash` - Pop a pinned stash (applies and removes)
 
 ## Requirements
 
@@ -128,6 +131,20 @@ This extension stores pinned branches and stashes in the workspace state. No add
 - Remote branches are supported but may show as "not found" if not fetched locally
 
 ## Release Notes
+
+### 0.2.3
+
+New features:
+
+- Added Pop Stash action to apply and remove stashes in one action
+- Pop and Apply actions now both appear inline on pinned stash items
+- Pop uses `git stash pop`, Apply uses `git stash apply`
+
+### 0.2.2
+
+Updates:
+
+- Added "Git Pin:" prefix to all command titles for better organization in Command Palette
 
 ### 0.2.1
 
