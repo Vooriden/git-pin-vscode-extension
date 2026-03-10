@@ -3,6 +3,7 @@
   "displayName": "Git Pin",
   "description": "Pin your favorite Git branches and stashes for quick access",
   "version": "0.2.4",
+  "icon": "assets/icon/icon.png",
   "publisher": "vooriden",
   "engines": {
     "vscode": "^1.80.0"
