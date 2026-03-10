@@ -85,7 +85,6 @@ This extension contributes the following commands:
 - `git-pin.pinBranchFromList` - Pick any branch from a list and pin it
 - `git-pin.pinCurrentBranch` - Pin the currently checked-out branch
 - `git-pin.unpinBranch` - Unpin a branch
-- `git-pin.checkoutBranch` - Checkout a pinned branch
 - `git-pin.refresh` - Refresh the unified pinned view
 
 **Stash Commands:**

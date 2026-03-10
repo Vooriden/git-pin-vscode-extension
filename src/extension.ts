@@ -1,11 +1,7 @@
 import * as vscode from 'vscode';
 
 import { GitHelper } from './gitHelper';
-import {
-  PinnedBranchItem,
-  PinnedItemsProvider,
-  PinnedStashItem,
-} from './pinnedItemsProvider';
+import { PinnedBranchItem, PinnedItemsProvider, PinnedStashItem } from './pinnedItemsProvider';
 
 export async function activate(context: vscode.ExtensionContext) {
   console.log('Git Pin extension is now active');

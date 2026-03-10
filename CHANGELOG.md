@@ -2,6 +2,12 @@
 
 All notable changes to Git Pin will be documented in this file.
 
+## [0.2.6]
+
+Changes:
+
+- Removed missing command contribution for `git-pin.checkoutBranch` to resolve VS Code menu validation errors
+
 ## [0.2.5]
 
 Bug fixes:

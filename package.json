@@ -2,7 +2,7 @@
   "name": "git-pin",
   "displayName": "Git Pin",
   "description": "Pin your favorite Git branches and stashes for quick access",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "icon": "assets/icon/icon.png",
   "publisher": "vooriden",
   "repository": {
@@ -84,11 +84,6 @@
         {
           "command": "git-pin.pinStash",
           "when": "view == pinnedItems && viewItem == pinnedSectionStashes",
-          "group": "inline"
-        },
-        {
-          "command": "git-pin.checkoutBranch",
-          "when": "view == pinnedItems && viewItem == pinnedBranch",
           "group": "inline"
         },
         {
