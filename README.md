@@ -18,30 +18,31 @@ A Visual Studio Code extension that allows you to pin your favorite Git branches
 
 ### Pin a Branch
 
-1. Switch to the branch you want to pin
-2. In the "Pinned" view, hover the **Branches** section and click its pin icon
-3. Or use the Command Palette: `Pin Current Branch`
+1. In the "Pinned" view, hover the **Branches** section and click the **`+`** icon
+2. Select the branch you want to pin from the list
+3. Or use the Command Palette: `Git Pin: Pin Branch`
+
+Alternatively, switch to the branch you want to pin and use the Command Palette: `Git Pin: Pin Current Branch`
 
 ### Checkout a Pinned Branch
 
 - Expand **Branches** inside the "Pinned" view and click a branch to check it out
-- Or click the branch icon next to the branch name
 
 ### Unpin a Branch
 
 - Click the unpin icon next to a pinned branch in the view
-- Or use the Command Palette: `Unpin Branch` and select from the list
+- Or use the Command Palette: `Git Pin: Unpin Branch` and select from the list
 
 ### Pin a Stash
 
 1. In the "Pinned" view, hover the **Stashes** section and click its pin icon
 2. Select the stash you want to pin from the list
-3. Or use the Command Palette: `Pin Stash`
+3. Or use the Command Palette: `Git Pin: Pin Stash`
 
 ### Apply a Pinned Stash
 
 - Expand **Stashes** inside the "Pinned" view
-- Click the archive icon (apply) or trash icon (pop) on a stash item
+- Click the archive icon (apply) or arrow icon (pop) on a stash item
 - Left icon applies the stash (keeps it in the stash list)
 - Right icon pops the stash (applies and removes it)
 - The stash will be applied to your working directory (equivalent to `git stash apply` or `git stash pop`)
@@ -49,7 +50,7 @@ A Visual Studio Code extension that allows you to pin your favorite Git branches
 ### Unpin a Stash
 
 - Click the unpin icon next to a pinned stash in the view
-- Or use the Command Palette: `Unpin Stash` and select from the list
+- Or use the Command Palette: `Git Pin: Unpin Stash` and select from the list
 
 ### Refresh the View
 
@@ -81,7 +82,8 @@ This extension contributes the following commands:
 
 **Branch Commands:**
 
-- `git-pin.pinCurrentBranch` - Pin the current Git branch
+- `git-pin.pinBranchFromList` - Pick any branch from a list and pin it
+- `git-pin.pinCurrentBranch` - Pin the currently checked-out branch
 - `git-pin.unpinBranch` - Unpin a branch
 - `git-pin.checkoutBranch` - Checkout a pinned branch
 - `git-pin.refresh` - Refresh the unified pinned view
@@ -118,7 +120,7 @@ vsce package
 This creates a `.vsix` file that you can install manually:
 
 ```bash
-code --install-extension git-pin-0.2.0.vsix
+code --install-extension git-pin-0.2.4.vsix
 ```
 
 ## Extension Settings
@@ -131,6 +133,13 @@ This extension stores pinned branches and stashes in the workspace state. No add
 - Remote branches are supported but may show as "not found" if not fetched locally
 
 ## Release Notes
+
+### 0.2.4
+
+New features:
+
+- Added **`+`** button on the Branches section header to pin any branch from a list without switching to it first
+- The picker automatically excludes already-pinned branches
 
 ### 0.2.3
 

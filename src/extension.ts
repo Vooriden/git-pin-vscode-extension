@@ -46,6 +46,36 @@ export async function activate(context: vscode.ExtensionContext) {
     },
   );
 
+  // Command: Pin branch from list
+  const pinBranchFromListCommand = vscode.commands.registerCommand(
+    'git-pin.pinBranchFromList',
+    async () => {
+      const allBranches = await gitHelper.getAllBranches();
+      if (allBranches.length === 0) {
+        vscode.window.showInformationMessage('No branches found');
+        return;
+      }
+
+      const pinnedBranches = pinnedItemsProvider.getPinnedBranches();
+      const unpinnedBranches = allBranches.filter(
+        (b) => !pinnedBranches.includes(b),
+      );
+
+      if (unpinnedBranches.length === 0) {
+        vscode.window.showInformationMessage('All branches are already pinned');
+        return;
+      }
+
+      const selected = await vscode.window.showQuickPick(unpinnedBranches, {
+        placeHolder: 'Select a branch to pin',
+      });
+
+      if (selected) {
+        await pinnedItemsProvider.pinBranch(selected);
+      }
+    },
+  );
+
   // Command: Unpin branch
   const unpinBranchCommand = vscode.commands.registerCommand(
     'git-pin.unpinBranch',
@@ -186,6 +216,7 @@ export async function activate(context: vscode.ExtensionContext) {
   // Register all commands
   context.subscriptions.push(
     pinCurrentBranchCommand,
+    pinBranchFromListCommand,
     unpinBranchCommand,
     checkoutBranchCommand,
     refreshCommand,

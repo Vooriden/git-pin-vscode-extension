@@ -2,7 +2,7 @@
   "name": "git-pin",
   "displayName": "Git Pin",
   "description": "Pin your favorite Git branches and stashes for quick access",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "publisher": "vooriden",
   "engines": {
     "vscode": "^1.80.0"
@@ -19,14 +19,14 @@
         "icon": "$(pin)"
       },
       {
+        "command": "git-pin.pinBranchFromList",
+        "title": "Git Pin: Pin Branch",
+        "icon": "$(add)"
+      },
+      {
         "command": "git-pin.unpinBranch",
         "title": "Git Pin: Unpin Branch",
         "icon": "$(pinned)"
-      },
-      {
-        "command": "git-pin.checkoutBranch",
-        "title": "Git Pin: Checkout Branch",
-        "icon": "$(arrow-left)"
       },
       {
         "command": "git-pin.refresh",
@@ -73,7 +73,7 @@
       ],
       "view/item/context": [
         {
-          "command": "git-pin.pinCurrentBranch",
+          "command": "git-pin.pinBranchFromList",
           "when": "view == pinnedItems && viewItem == pinnedSectionBranches",
           "group": "inline"
         },
