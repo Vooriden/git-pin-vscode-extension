@@ -2,6 +2,12 @@
 
 All notable changes to Git Pin will be documented in this file.
 
+## [0.2.7]
+
+Updates:
+
+- Updated Marketplace metadata: category set to SCM Providers and added searchable keywords/tags
+
 ## [0.2.6]
 
 Changes:
