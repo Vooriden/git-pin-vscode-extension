@@ -2,7 +2,7 @@
   "name": "git-pin",
   "displayName": "Git Pin",
   "description": "Pin your favorite Git branches and stashes for quick access",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "publisher": "vooriden",
   "engines": {
     "vscode": "^1.80.0"
@@ -15,37 +15,37 @@
     "commands": [
       {
         "command": "git-pin.pinCurrentBranch",
-        "title": "Pin Current Branch",
+        "title": "Git Pin: Pin Current Branch",
         "icon": "$(pin)"
       },
       {
         "command": "git-pin.unpinBranch",
-        "title": "Unpin Branch",
+        "title": "Git Pin: Unpin Branch",
         "icon": "$(pinned)"
       },
       {
         "command": "git-pin.checkoutBranch",
-        "title": "Checkout Branch",
-        "icon": "$(git-branch)"
+        "title": "Git Pin: Checkout Branch",
+        "icon": "$(arrow-left)"
       },
       {
         "command": "git-pin.refresh",
-        "title": "Refresh Pinned Branches",
+        "title": "Git Pin: Refresh Pinned Items",
         "icon": "$(refresh)"
       },
       {
         "command": "git-pin.pinStash",
-        "title": "Pin Stash",
+        "title": "Git Pin: Pin Stash",
         "icon": "$(pin)"
       },
       {
         "command": "git-pin.unpinStash",
-        "title": "Unpin Stash",
+        "title": "Git Pin: Unpin Stash",
         "icon": "$(pinned)"
       },
       {
         "command": "git-pin.applyStash",
-        "title": "Apply Stash",
+        "title": "Git Pin: Apply Stash",
         "icon": "$(archive)"
       }
     ],
