@@ -1,14 +1,16 @@
 # Git Pin
 
-A Visual Studio Code extension that allows you to pin your favorite Git branches for quick access and easy switching.
+A Visual Studio Code extension that allows you to pin your favorite Git branches and stashes for quick access and easy switching.
 
 ## Features
 
 - **Pin Branches**: Pin any Git branch to keep it easily accessible
+- **Pin Stashes**: Pin Git stashes to quickly find and apply them later
 - **Quick Checkout**: Click on a pinned branch to quickly check it out
-- **Visual Indicators**: See which branch is currently active and which branches still exist
-- **Persistent Storage**: Pinned branches are stored per workspace
-- **Easy Management**: Pin and unpin branches with simple commands
+- **Quick Apply**: Click on a pinned stash to apply it to your working directory
+- **Visual Indicators**: See which branch is currently active and which branches/stashes still exist
+- **Persistent Storage**: Pinned branches and stashes are stored per workspace
+- **Easy Management**: Pin and unpin branches and stashes with simple commands
 
 ## Usage
 
@@ -28,6 +30,23 @@ A Visual Studio Code extension that allows you to pin your favorite Git branches
 - Click the unpin icon next to a pinned branch in the view
 - Or use the Command Palette: `Unpin Branch` and select from the list
 
+### Pin a Stash
+
+1. Click the pin icon (📌) in the "Pinned Stashes" view title bar
+2. Select the stash you want to pin from the list
+3. Or use the Command Palette: `Pin Stash`
+
+### Apply a Pinned Stash
+
+- Click on any pinned stash in the "Pinned Stashes" view to apply it
+- Or click the archive icon next to the stash name
+- The stash will be applied to your working directory (equivalent to `git stash apply`)
+
+### Unpin a Stash
+
+- Click the unpin icon next to a pinned stash in the view
+- Or use the Command Palette: `Unpin Stash` and select from the list
+
 ### Refresh the View
 
 - Click the refresh icon in the view title bar
@@ -35,20 +54,40 @@ A Visual Studio Code extension that allows you to pin your favorite Git branches
 
 ## View
 
-The **Pinned Branches** view appears in the Source Control sidebar and shows:
+The extension provides two views in the Source Control sidebar:
+
+### Pinned Branches
+
+Shows your pinned branches with:
 
 - ✅ **Current branch** - marked with a green check icon and "(current)" label
 - ⚠️ **Missing branches** - branches that no longer exist, marked with a warning icon
 - 🌿 **Available branches** - branches that exist and can be checked out
 
+### Pinned Stashes
+
+Shows your pinned stashes with:
+
+- 📦 **Available stashes** - stashes that exist and can be applied, showing stash index
+- ⚠️ **Missing stashes** - stashes that no longer exist, marked with a warning icon
+
 ## Commands
 
 This extension contributes the following commands:
+
+**Branch Commands:**
 
 - `git-pin.pinCurrentBranch` - Pin the current Git branch
 - `git-pin.unpinBranch` - Unpin a branch
 - `git-pin.checkoutBranch` - Checkout a pinned branch
 - `git-pin.refresh` - Refresh the pinned branches view
+
+**Stash Commands:**
+
+- `git-pin.pinStash` - Pin a Git stash
+- `git-pin.unpinStash` - Unpin a stash
+- `git-pin.applyStash` - Apply a pinned stash
+- `git-pin.refreshStashes` - Refresh the pinned stashes view
 
 ## Requirements
 
@@ -80,7 +119,7 @@ code --install-extension git-pin-0.0.1.vsix
 
 ## Extension Settings
 
-This extension stores pinned branches in the workspace state. No additional configuration is required.
+This extension stores pinned branches and stashes in the workspace state. No additional configuration is required.
 
 ## Known Issues
 
@@ -88,6 +127,23 @@ This extension stores pinned branches in the workspace state. No additional conf
 - Remote branches are supported but may show as "not found" if not fetched locally
 
 ## Release Notes
+
+### 0.1.1
+
+Bug fixes:
+
+- Fixed activation error when Git extension is not yet loaded
+- Made Git extension integration optional and non-blocking
+
+### 0.1.0
+
+New features:
+
+- Pin and unpin Git stashes
+- View pinned stashes in the Source Control sidebar
+- Quick apply functionality for stashes
+- Visual indicators for existing and missing stashes
+- Persistent storage of pinned stashes per workspace
 
 ### 0.0.1
 

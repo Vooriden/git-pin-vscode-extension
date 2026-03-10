@@ -64,4 +64,62 @@ export class GitHelper {
       return false;
     }
   }
+
+  async getStashes(): Promise<{ index: number; message: string }[]> {
+    try {
+      const { stdout } = await exec('git stash list', {
+        cwd: this.workspaceRoot,
+      });
+      if (!stdout.trim()) {
+        return [];
+      }
+
+      return stdout
+        .trim()
+        .split('\n')
+        .map((line) => {
+          const match = line.match(/^stash@\{(\d+)\}: (.+)$/);
+          if (match) {
+            return {
+              index: parseInt(match[1], 10),
+              message: match[2],
+            };
+          }
+          return null;
+        })
+        .filter(
+          (stash): stash is { index: number; message: string } =>
+            stash !== null,
+        );
+    } catch (error) {
+      vscode.window.showErrorMessage(`Failed to get stashes: ${error}`);
+      return [];
+    }
+  }
+
+  async applyStash(stashIndex: number): Promise<boolean> {
+    try {
+      await exec(`git stash apply stash@{${stashIndex}}`, {
+        cwd: this.workspaceRoot,
+      });
+      vscode.window.showInformationMessage(
+        `Applied stash stash@{${stashIndex}}`,
+      );
+      return true;
+    } catch (error) {
+      vscode.window.showErrorMessage(`Failed to apply stash: ${error}`);
+      return false;
+    }
+  }
+
+  async stashExists(stashIndex: number): Promise<boolean> {
+    try {
+      await exec(`git rev-parse --verify stash@{${stashIndex}}`, {
+        cwd: this.workspaceRoot,
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  }
 }

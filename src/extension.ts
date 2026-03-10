@@ -2,8 +2,9 @@ import * as vscode from 'vscode';
 
 import { GitHelper } from './gitHelper';
 import { PinnedBranch, PinnedBranchesProvider } from './pinnedBranchesProvider';
+import { PinnedStash, PinnedStashesProvider } from './pinnedStashesProvider';
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   console.log('Git Pin extension is now active');
   // Get workspace root
   const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -28,6 +29,18 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(treeView);
+
+  // Create stash tree data provider
+  const pinnedStashesProvider = new PinnedStashesProvider(context);
+  pinnedStashesProvider.setGitHelper(gitHelper);
+
+  // Register stash tree data provider
+  const stashTreeView = vscode.window.createTreeView('pinnedStashes', {
+    treeDataProvider: pinnedStashesProvider,
+    showCollapseAll: false,
+  });
+
+  context.subscriptions.push(stashTreeView);
 
   // Command: Pin current branch
   const pinCurrentBranchCommand = vscode.commands.registerCommand(
@@ -89,28 +102,126 @@ export function activate(context: vscode.ExtensionContext) {
     },
   );
 
+  // Command: Pin stash from list
+  const pinStashCommand = vscode.commands.registerCommand(
+    'git-pin.pinStash',
+    async () => {
+      const stashes = await gitHelper.getStashes();
+      if (stashes.length === 0) {
+        vscode.window.showInformationMessage('No stashes found');
+        return;
+      }
+
+      const items = stashes.map((stash) => ({
+        label: `stash@{${stash.index}}`,
+        description: stash.message,
+        index: stash.index,
+        message: stash.message,
+      }));
+
+      const selected = await vscode.window.showQuickPick(items, {
+        placeHolder: 'Select a stash to pin',
+      });
+
+      if (selected) {
+        await pinnedStashesProvider.pinStash(selected.index, selected.message);
+      }
+    },
+  );
+
+  // Command: Unpin stash
+  const unpinStashCommand = vscode.commands.registerCommand(
+    'git-pin.unpinStash',
+    async (item: PinnedStash) => {
+      if (item && item.stashIndex !== undefined && item.message) {
+        await pinnedStashesProvider.unpinStash(item.stashIndex, item.message);
+      } else {
+        // Show quick pick if called from command palette
+        const pinnedStashes = pinnedStashesProvider.getPinnedStashes();
+        if (pinnedStashes.length === 0) {
+          vscode.window.showInformationMessage('No pinned stashes');
+          return;
+        }
+
+        const items = pinnedStashes.map((stash) => ({
+          label: `stash@{${stash.index}}`,
+          description: stash.message,
+          index: stash.index,
+          message: stash.message,
+        }));
+
+        const selected = await vscode.window.showQuickPick(items, {
+          placeHolder: 'Select a stash to unpin',
+        });
+
+        if (selected) {
+          await pinnedStashesProvider.unpinStash(
+            selected.index,
+            selected.message,
+          );
+        }
+      }
+    },
+  );
+
+  // Command: Apply stash
+  const applyStashCommand = vscode.commands.registerCommand(
+    'git-pin.applyStash',
+    async (item: PinnedStash) => {
+      if (item && item.stashIndex !== undefined && item.exists) {
+        const success = await gitHelper.applyStash(item.stashIndex);
+        if (success) {
+          // Refresh the view to check if stash still exists
+          setTimeout(() => pinnedStashesProvider.refresh(), 500);
+        }
+      }
+    },
+  );
+
+  // Command: Refresh stashes view
+  const refreshStashesCommand = vscode.commands.registerCommand(
+    'git-pin.refreshStashes',
+    () => {
+      pinnedStashesProvider.refresh();
+    },
+  );
+
   // Register all commands
   context.subscriptions.push(
     pinCurrentBranchCommand,
     unpinBranchCommand,
     checkoutBranchCommand,
     refreshCommand,
+    pinStashCommand,
+    unpinStashCommand,
+    applyStashCommand,
+    refreshStashesCommand,
   );
 
-  // Listen for Git changes to refresh the view
-  const gitExtension = vscode.extensions.getExtension('vscode.git');
-  if (gitExtension) {
-    const git = gitExtension.exports;
-    const api = git.getAPI(1);
+  // Listen for Git changes to refresh the view (optional, non-blocking)
+  try {
+    const gitExtension = vscode.extensions.getExtension('vscode.git');
+    if (gitExtension) {
+      // Activate the Git extension if not already active
+      if (!gitExtension.isActive) {
+        await gitExtension.activate();
+      }
 
-    if (api && api.repositories.length > 0) {
-      const repo = api.repositories[0];
+      const git = gitExtension.exports;
+      const api = git.getAPI(1);
 
-      // Refresh when HEAD changes
-      repo.state.onDidChange(() => {
-        pinnedBranchesProvider.refresh();
-      });
+      if (api && api.repositories.length > 0) {
+        const repo = api.repositories[0];
+
+        // Refresh when HEAD changes
+        repo.state.onDidChange(() => {
+          pinnedBranchesProvider.refresh();
+        });
+      }
     }
+  } catch (error) {
+    // Git extension integration is optional, continue without it
+    console.log('Git extension not available, auto-refresh disabled', error);
   }
 }
 

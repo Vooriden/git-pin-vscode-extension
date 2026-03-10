@@ -1,8 +1,8 @@
 {
   "name": "git-pin",
   "displayName": "Git Pin",
-  "description": "Pin your favorite Git branches for quick access",
-  "version": "0.0.1",
+  "description": "Pin your favorite Git branches and stashes for quick access",
+  "version": "0.1.1",
   "publisher": "vooriden",
   "engines": {
     "vscode": "^1.80.0"
@@ -32,6 +32,26 @@
         "command": "git-pin.refresh",
         "title": "Refresh Pinned Branches",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "git-pin.pinStash",
+        "title": "Pin Stash",
+        "icon": "$(pin)"
+      },
+      {
+        "command": "git-pin.unpinStash",
+        "title": "Unpin Stash",
+        "icon": "$(pinned)"
+      },
+      {
+        "command": "git-pin.applyStash",
+        "title": "Apply Stash",
+        "icon": "$(archive)"
+      },
+      {
+        "command": "git-pin.refreshStashes",
+        "title": "Refresh Pinned Stashes",
+        "icon": "$(refresh)"
       }
     ],
     "views": {
@@ -39,6 +59,10 @@
         {
           "id": "pinnedBranches",
           "name": "Pinned Branches"
+        },
+        {
+          "id": "pinnedStashes",
+          "name": "Pinned Stashes"
         }
       ]
     },
@@ -53,6 +77,16 @@
           "command": "git-pin.refresh",
           "when": "view == pinnedBranches",
           "group": "navigation"
+        },
+        {
+          "command": "git-pin.pinStash",
+          "when": "view == pinnedStashes",
+          "group": "navigation"
+        },
+        {
+          "command": "git-pin.refreshStashes",
+          "when": "view == pinnedStashes",
+          "group": "navigation"
         }
       ],
       "view/item/context": [
@@ -64,6 +98,16 @@
         {
           "command": "git-pin.unpinBranch",
           "when": "view == pinnedBranches && viewItem == pinnedBranch",
+          "group": "inline"
+        },
+        {
+          "command": "git-pin.applyStash",
+          "when": "view == pinnedStashes && viewItem == pinnedStash",
+          "group": "inline"
+        },
+        {
+          "command": "git-pin.unpinStash",
+          "when": "view == pinnedStashes && viewItem == pinnedStash",
           "group": "inline"
         }
       ]
