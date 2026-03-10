@@ -1,0 +1,88 @@
+{
+  "name": "git-pin",
+  "displayName": "Git Pin",
+  "description": "Pin your favorite Git branches for quick access",
+  "version": "0.0.1",
+  "publisher": "vooriden",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "git-pin.pinCurrentBranch",
+        "title": "Pin Current Branch",
+        "icon": "$(pin)"
+      },
+      {
+        "command": "git-pin.unpinBranch",
+        "title": "Unpin Branch",
+        "icon": "$(pinned)"
+      },
+      {
+        "command": "git-pin.checkoutBranch",
+        "title": "Checkout Branch",
+        "icon": "$(git-branch)"
+      },
+      {
+        "command": "git-pin.refresh",
+        "title": "Refresh Pinned Branches",
+        "icon": "$(refresh)"
+      }
+    ],
+    "views": {
+      "scm": [
+        {
+          "id": "pinnedBranches",
+          "name": "Pinned Branches"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "git-pin.pinCurrentBranch",
+          "when": "view == pinnedBranches",
+          "group": "navigation"
+        },
+        {
+          "command": "git-pin.refresh",
+          "when": "view == pinnedBranches",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "git-pin.checkoutBranch",
+          "when": "view == pinnedBranches && viewItem == pinnedBranch",
+          "group": "inline"
+        },
+        {
+          "command": "git-pin.unpinBranch",
+          "when": "view == pinnedBranches && viewItem == pinnedBranch",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "20.x",
+    "@types/vscode": "^1.80.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "eslint": "^10.0.3",
+    "typescript": "^5.1.6"
+  }
+}
