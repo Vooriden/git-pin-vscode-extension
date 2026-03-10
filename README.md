@@ -2,6 +2,8 @@
 
 A Visual Studio Code extension that allows you to pin your favorite Git branches and stashes for quick access and easy switching.
 
+![alt text](assets/image.png)
+
 ## Features
 
 - **Pin Branches**: Pin any Git branch to keep it easily accessible
@@ -17,12 +19,12 @@ A Visual Studio Code extension that allows you to pin your favorite Git branches
 ### Pin a Branch
 
 1. Switch to the branch you want to pin
-2. Click the pin icon (📌) in the "Pinned Branches" view title bar
+2. In the "Pinned" view, hover the **Branches** section and click its pin icon
 3. Or use the Command Palette: `Pin Current Branch`
 
 ### Checkout a Pinned Branch
 
-- Click on any pinned branch in the "Pinned Branches" view to check it out
+- Expand **Branches** inside the "Pinned" view and click a branch to check it out
 - Or click the branch icon next to the branch name
 
 ### Unpin a Branch
@@ -32,13 +34,13 @@ A Visual Studio Code extension that allows you to pin your favorite Git branches
 
 ### Pin a Stash
 
-1. Click the pin icon (📌) in the "Pinned Stashes" view title bar
+1. In the "Pinned" view, hover the **Stashes** section and click its pin icon
 2. Select the stash you want to pin from the list
 3. Or use the Command Palette: `Pin Stash`
 
 ### Apply a Pinned Stash
 
-- Click on any pinned stash in the "Pinned Stashes" view to apply it
+- Expand **Stashes** inside the "Pinned" view and click a stash to apply it
 - Or click the archive icon next to the stash name
 - The stash will be applied to your working directory (equivalent to `git stash apply`)
 
@@ -54,9 +56,9 @@ A Visual Studio Code extension that allows you to pin your favorite Git branches
 
 ## View
 
-The extension provides two views in the Source Control sidebar:
+The extension provides a single **Pinned** view in the Source Control sidebar with two sections:
 
-### Pinned Branches
+### Branches
 
 Shows your pinned branches with:
 
@@ -64,7 +66,7 @@ Shows your pinned branches with:
 - ⚠️ **Missing branches** - branches that no longer exist, marked with a warning icon
 - 🌿 **Available branches** - branches that exist and can be checked out
 
-### Pinned Stashes
+### Stashes
 
 Shows your pinned stashes with:
 
@@ -80,14 +82,13 @@ This extension contributes the following commands:
 - `git-pin.pinCurrentBranch` - Pin the current Git branch
 - `git-pin.unpinBranch` - Unpin a branch
 - `git-pin.checkoutBranch` - Checkout a pinned branch
-- `git-pin.refresh` - Refresh the pinned branches view
+- `git-pin.refresh` - Refresh the unified pinned view
 
 **Stash Commands:**
 
 - `git-pin.pinStash` - Pin a Git stash
 - `git-pin.unpinStash` - Unpin a stash
 - `git-pin.applyStash` - Apply a pinned stash
-- `git-pin.refreshStashes` - Refresh the pinned stashes view
 
 ## Requirements
 
@@ -114,7 +115,7 @@ vsce package
 This creates a `.vsix` file that you can install manually:
 
 ```bash
-code --install-extension git-pin-0.0.1.vsix
+code --install-extension git-pin-0.2.0.vsix
 ```
 
 ## Extension Settings
@@ -127,6 +128,21 @@ This extension stores pinned branches and stashes in the workspace state. No add
 - Remote branches are supported but may show as "not found" if not fetched locally
 
 ## Release Notes
+
+### 0.2.1
+
+Improvements:
+
+- Moved pin actions from the shared view title to the Branches and Stashes subtree headers
+- Added section-specific inline icons to reduce confusion between branch and stash pinning
+
+### 0.2.0
+
+New features:
+
+- Merged pinned branches and pinned stashes into a single **Pinned** view
+- Added top-level Branches and Stashes sections inside the same view
+- Unified refresh action for all pinned items
 
 ### 0.1.1
 

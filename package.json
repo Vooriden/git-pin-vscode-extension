@@ -2,7 +2,7 @@
   "name": "git-pin",
   "displayName": "Git Pin",
   "description": "Pin your favorite Git branches and stashes for quick access",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "publisher": "vooriden",
   "engines": {
     "vscode": "^1.80.0"
@@ -47,67 +47,54 @@
         "command": "git-pin.applyStash",
         "title": "Apply Stash",
         "icon": "$(archive)"
-      },
-      {
-        "command": "git-pin.refreshStashes",
-        "title": "Refresh Pinned Stashes",
-        "icon": "$(refresh)"
       }
     ],
     "views": {
       "scm": [
         {
-          "id": "pinnedBranches",
-          "name": "Pinned Branches"
-        },
-        {
-          "id": "pinnedStashes",
-          "name": "Pinned Stashes"
+          "id": "pinnedItems",
+          "name": "Pinned",
+          "icon": "media/pinned-view.svg"
         }
       ]
     },
     "menus": {
       "view/title": [
         {
-          "command": "git-pin.pinCurrentBranch",
-          "when": "view == pinnedBranches",
-          "group": "navigation"
-        },
-        {
           "command": "git-pin.refresh",
-          "when": "view == pinnedBranches",
-          "group": "navigation"
-        },
-        {
-          "command": "git-pin.pinStash",
-          "when": "view == pinnedStashes",
-          "group": "navigation"
-        },
-        {
-          "command": "git-pin.refreshStashes",
-          "when": "view == pinnedStashes",
+          "when": "view == pinnedItems",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
+          "command": "git-pin.pinCurrentBranch",
+          "when": "view == pinnedItems && viewItem == pinnedSectionBranches",
+          "group": "inline"
+        },
+        {
+          "command": "git-pin.pinStash",
+          "when": "view == pinnedItems && viewItem == pinnedSectionStashes",
+          "group": "inline"
+        },
+        {
           "command": "git-pin.checkoutBranch",
-          "when": "view == pinnedBranches && viewItem == pinnedBranch",
+          "when": "view == pinnedItems && viewItem == pinnedBranch",
           "group": "inline"
         },
         {
           "command": "git-pin.unpinBranch",
-          "when": "view == pinnedBranches && viewItem == pinnedBranch",
+          "when": "view == pinnedItems && viewItem == pinnedBranch",
           "group": "inline"
         },
         {
           "command": "git-pin.applyStash",
-          "when": "view == pinnedStashes && viewItem == pinnedStash",
+          "when": "view == pinnedItems && viewItem == pinnedStash",
           "group": "inline"
         },
         {
           "command": "git-pin.unpinStash",
-          "when": "view == pinnedStashes && viewItem == pinnedStash",
+          "when": "view == pinnedItems && viewItem == pinnedStash",
           "group": "inline"
         }
       ]
