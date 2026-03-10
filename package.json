@@ -2,7 +2,7 @@
   "name": "git-pin",
   "displayName": "Git Pin",
   "description": "Pin your favorite Git branches and stashes for quick access",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "icon": "assets/icon/icon.png",
   "publisher": "vooriden",
   "repository": {
@@ -39,7 +39,7 @@
       {
         "command": "git-pin.unpinBranch",
         "title": "Git Pin: Unpin Branch",
-        "icon": "$(pinned)"
+        "icon": "$(trash)"
       },
       {
         "command": "git-pin.refresh",
@@ -49,12 +49,12 @@
       {
         "command": "git-pin.pinStash",
         "title": "Git Pin: Pin Stash",
-        "icon": "$(pin)"
+        "icon": "$(add)"
       },
       {
         "command": "git-pin.unpinStash",
         "title": "Git Pin: Unpin Stash",
-        "icon": "$(pinned)"
+        "icon": "$(trash)"
       },
       {
         "command": "git-pin.applyStash",

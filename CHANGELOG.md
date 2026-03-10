@@ -2,6 +2,13 @@
 
 All notable changes to Git Pin will be documented in this file.
 
+## [0.2.8]
+
+UI updates:
+
+- Changed Unpin Branch and Unpin Stash actions to use the trash icon
+- Changed Pin Stash action to use the add icon for consistency with branch pinning
+
 ## [0.2.7]
 
 Updates:

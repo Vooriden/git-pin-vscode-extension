@@ -30,12 +30,12 @@ Alternatively, switch to the branch you want to pin and use the Command Palette:
 
 ### Unpin a Branch
 
-- Click the unpin icon next to a pinned branch in the view
+- Click the trash icon next to a pinned branch in the view
 - Or use the Command Palette: `Git Pin: Unpin Branch` and select from the list
 
 ### Pin a Stash
 
-1. In the "Pinned" view, hover the **Stashes** section and click its pin icon
+1. In the "Pinned" view, hover the **Stashes** section and click the **`+`** icon
 2. Select the stash you want to pin from the list
 3. Or use the Command Palette: `Git Pin: Pin Stash`
 
@@ -49,7 +49,7 @@ Alternatively, switch to the branch you want to pin and use the Command Palette:
 
 ### Unpin a Stash
 
-- Click the unpin icon next to a pinned stash in the view
+- Click the trash icon next to a pinned stash in the view
 - Or use the Command Palette: `Git Pin: Unpin Stash` and select from the list
 
 ### Refresh the View
@@ -119,7 +119,7 @@ vsce package
 This creates a `.vsix` file that you can install manually:
 
 ```bash
-code --install-extension git-pin-0.2.4.vsix
+code --install-extension git-pin-0.2.8.vsix
 ```
 
 ## Extension Settings
