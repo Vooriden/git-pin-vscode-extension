@@ -138,3 +138,5 @@ If you find any bugs or have feature requests, please file an issue on the GitHu
 ## License
 
 This extension is released under the [MIT License](LICENSE.md).
+
+Icon assets are from [Primer Octicons](https://primer.style/octicons/) and used under the MIT License.

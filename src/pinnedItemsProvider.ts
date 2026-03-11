@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 
 import { GitHelper } from './gitHelper';
+import { OcticonHelper, OcticonMap } from './octiconHelper';
 
 type PinnedSectionKind = 'branches' | 'stashes';
 
@@ -10,7 +11,10 @@ type PinnedStashData = {
 };
 
 export class PinnedSection extends vscode.TreeItem {
-  constructor(public readonly kind: PinnedSectionKind) {
+  constructor(
+    public readonly kind: PinnedSectionKind,
+    private readonly icons: OcticonMap,
+  ) {
     super(
       kind === 'branches' ? 'Branches' : 'Stashes',
       vscode.TreeItemCollapsibleState.Expanded,
@@ -18,9 +22,8 @@ export class PinnedSection extends vscode.TreeItem {
 
     this.contextValue =
       kind === 'branches' ? 'pinnedSectionBranches' : 'pinnedSectionStashes';
-    this.iconPath = new vscode.ThemeIcon(
-      kind === 'branches' ? 'git-branch' : 'archive',
-    );
+    this.iconPath =
+      kind === 'branches' ? this.icons['git-branch'] : this.icons.package;
   }
 }
 
@@ -29,6 +32,7 @@ export class PinnedBranchItem extends vscode.TreeItem {
     public readonly branchName: string,
     public readonly exists: boolean,
     public readonly isCurrent: boolean,
+    private readonly icons: OcticonMap,
   ) {
     super(branchName, vscode.TreeItemCollapsibleState.None);
 
@@ -36,19 +40,13 @@ export class PinnedBranchItem extends vscode.TreeItem {
     this.contextValue = 'pinnedBranch';
 
     if (isCurrent) {
-      this.iconPath = new vscode.ThemeIcon(
-        'check',
-        new vscode.ThemeColor('charts.green'),
-      );
+      this.iconPath = this.icons['check'];
       this.description = '(current)';
     } else if (!exists) {
-      this.iconPath = new vscode.ThemeIcon(
-        'warning',
-        new vscode.ThemeColor('charts.yellow'),
-      );
+      this.iconPath = this.icons.alert;
       this.description = '(not found)';
     } else {
-      this.iconPath = new vscode.ThemeIcon('git-branch');
+      this.iconPath = this.icons['git-branch'];
     }
 
     if (exists && !isCurrent) {
@@ -66,6 +64,7 @@ export class PinnedStashItem extends vscode.TreeItem {
     public readonly stashIndex: number,
     public readonly message: string,
     public readonly exists: boolean,
+    private readonly icons: OcticonMap,
   ) {
     super(message, vscode.TreeItemCollapsibleState.None);
 
@@ -73,13 +72,10 @@ export class PinnedStashItem extends vscode.TreeItem {
     this.contextValue = 'pinnedStash';
 
     if (!exists) {
-      this.iconPath = new vscode.ThemeIcon(
-        'warning',
-        new vscode.ThemeColor('charts.yellow'),
-      );
+      this.iconPath = this.icons.alert;
       this.description = '(not found)';
     } else {
-      this.iconPath = new vscode.ThemeIcon('archive');
+      this.iconPath = this.icons.package;
       this.description = `stash@{${stashIndex}}`;
     }
   }
@@ -98,8 +94,10 @@ export class PinnedItemsProvider implements vscode.TreeDataProvider<PinnedItem> 
   private pinnedBranches: string[] = [];
   private pinnedStashes: PinnedStashData[] = [];
   private gitHelper: GitHelper | undefined;
+  private readonly icons: OcticonMap;
 
   constructor(private context: vscode.ExtensionContext) {
+    this.icons = new OcticonHelper(context.extensionUri).createMap();
     this.loadPinnedState();
   }
 
@@ -117,7 +115,10 @@ export class PinnedItemsProvider implements vscode.TreeDataProvider<PinnedItem> 
 
   async getChildren(element?: PinnedItem): Promise<PinnedItem[]> {
     if (!element) {
-      return [new PinnedSection('branches'), new PinnedSection('stashes')];
+      return [
+        new PinnedSection('branches', this.icons),
+        new PinnedSection('stashes', this.icons),
+      ];
     }
 
     if (element instanceof PinnedSection) {
@@ -204,7 +205,9 @@ export class PinnedItemsProvider implements vscode.TreeDataProvider<PinnedItem> 
     for (const branchName of this.pinnedBranches) {
       const exists = (await this.gitHelper?.branchExists(branchName)) ?? false;
       const isCurrent = branchName === currentBranch;
-      items.push(new PinnedBranchItem(branchName, exists, isCurrent));
+      items.push(
+        new PinnedBranchItem(branchName, exists, isCurrent, this.icons),
+      );
     }
 
     return items;
@@ -215,7 +218,9 @@ export class PinnedItemsProvider implements vscode.TreeDataProvider<PinnedItem> 
 
     for (const stash of this.pinnedStashes) {
       const exists = (await this.gitHelper?.stashExists(stash.index)) ?? false;
-      items.push(new PinnedStashItem(stash.index, stash.message, exists));
+      items.push(
+        new PinnedStashItem(stash.index, stash.message, exists, this.icons),
+      );
     }
 
     return items;

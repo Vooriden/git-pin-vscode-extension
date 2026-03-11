@@ -6,8 +6,7 @@ All notable changes to Git Pin will be documented in this file.
 
 UI updates:
 
-- Changed Unpin Branch and Unpin Stash actions to use the trash icon
-- Changed Pin Stash action to use the add icon for consistency with branch pinning
+- Use of Primer Octicons SVG assets as icons
 
 ## [0.2.7]
 

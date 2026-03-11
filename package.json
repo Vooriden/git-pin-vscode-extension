@@ -29,42 +29,66 @@
       {
         "command": "git-pin.pinCurrentBranch",
         "title": "Git Pin: Pin Current Branch",
-        "icon": "$(pin)"
+        "icon": {
+          "light": "media/octicons/light/pin-16.svg",
+          "dark": "media/octicons/dark/pin-16.svg"
+        }
       },
       {
         "command": "git-pin.pinBranchFromList",
         "title": "Git Pin: Pin Branch",
-        "icon": "$(add)"
+        "icon": {
+          "light": "media/octicons/light/plus-16.svg",
+          "dark": "media/octicons/dark/plus-16.svg"
+        }
       },
       {
         "command": "git-pin.unpinBranch",
         "title": "Git Pin: Unpin Branch",
-        "icon": "$(trash)"
+        "icon": {
+          "light": "media/octicons/light/pin-slash-16.svg",
+          "dark": "media/octicons/dark/pin-slash-16.svg"
+        }
       },
       {
         "command": "git-pin.refresh",
         "title": "Git Pin: Refresh Pinned Items",
-        "icon": "$(refresh)"
+        "icon": {
+          "light": "media/octicons/light/sync-16.svg",
+          "dark": "media/octicons/dark/sync-16.svg"
+        }
       },
       {
         "command": "git-pin.pinStash",
         "title": "Git Pin: Pin Stash",
-        "icon": "$(add)"
+        "icon": {
+          "light": "media/octicons/light/plus-16.svg",
+          "dark": "media/octicons/dark/plus-16.svg"
+        }
       },
       {
         "command": "git-pin.unpinStash",
         "title": "Git Pin: Unpin Stash",
-        "icon": "$(trash)"
+        "icon": {
+          "light": "media/octicons/light/pin-slash-16.svg",
+          "dark": "media/octicons/dark/pin-slash-16.svg"
+        }
       },
       {
         "command": "git-pin.applyStash",
         "title": "Git Pin: Apply Stash",
-        "icon": "$(archive)"
+        "icon": {
+          "light": "media/octicons/light/package-dependents-16.svg",
+          "dark": "media/octicons/dark/package-dependents-16.svg"
+        }
       },
       {
         "command": "git-pin.popStash",
         "title": "Git Pin: Pop Stash",
-        "icon": "$(arrow-up)"
+        "icon": {
+          "light": "media/octicons/light/upload-16.svg",
+          "dark": "media/octicons/dark/upload-16.svg"
+        }
       }
     ],
     "views": {
